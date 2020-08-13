@@ -12,7 +12,8 @@ class Clock extends React.Component {
 
     // must set state to an object!!
     this.state = {
-      displayTime: ''
+      displayTime: '',
+      visitorName: 'Anonymous User'
     }
   }
 
@@ -37,8 +38,8 @@ class Clock extends React.Component {
   // 'render is the standard for getting
   // html into our web page 
   render() {
-    const displayTime = this.state.displayTime
-    const visitorName = "Anonymous User"
+    const { displayTime, visitorName } = this.state;
+
 
     return (
       <div className="clock">
