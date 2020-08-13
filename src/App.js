@@ -2,59 +2,62 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-
-// @see https://reactjs.org/docs/rendering-elements.html#updating-the-rendered-element
 class Clock extends React.Component {
+  // 'constructor' is part of 'class' and React components
+  // always called when an instance of our class is created
+  // or CONSTRUCTED
   constructor(props) {
-    super(props);
-    this.state = {date: new Date()};
+    super(props)
+    // bad code: this.state.displayTime = ''
+
+    // must set state to an object!!
+    this.state = {
+      displayTime: ''
+    }
   }
 
+  // 'componentDidMount is standard in 
+  // React where we load or initialize data
   componentDidMount() {
-    this.timerID = setInterval(
-      () => this.tick(),
-      1000
-    );
+    this.timerId = setInterval(() => {
+      // call the 'tick'
+      this.tick()
+    }, 1000);
   }
 
+  // custom method as seen on reactjs.org
   tick() {
+    console.log("In tick")
+    // setState method that updates the DATA
     this.setState({
-      date: new Date()
-    });
+      displayTime: new Date().toString()
+    })
   }
 
+  // 'render is the standard for getting
+  // html into our web page 
   render() {
+    const displayTime = this.state.displayTime
+    const visitorName = "Anonymous User"
+
     return (
-      <div>
-        <h1>Hello, world!</h1>
-        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
-      </div>
-    );
+      <div className="clock">
+        <h2>Your local time is {displayTime} </h2>
+        <div>Thanks for visiting {visitorName}!</div>
+      </div>)
   }
 }
 
-// @see https://reactjs.org/docs/create-a-new-react-app.html
+
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload. Ok.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
-      // See https://reactjs.org/docs/rendering-elements.html#updating-the-rendered-element
-      <Clock date={new Date()} />,
+      <Clock />
     </div>
-  );
+  )
 }
 
 export default App;
